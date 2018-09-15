@@ -6,27 +6,28 @@
 
 using namespace std;
 
-const int INF_ROOTS = 8; //Бесконечное количество корней.
-const int COMPLEX_ROOTS = 3; //Корни комплексные.
+/* comments in rus, kidding me? */
+const int INF_ROOTS = 8; //ГЃГҐГ±ГЄГ®Г­ГҐГ·Г­Г®ГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ®Г°Г­ГҐГ©.
+const int COMPLEX_ROOTS = 3; //ГЉГ®Г°Г­ГЁ ГЄГ®Г¬ГЇГ«ГҐГЄГ±Г­Г»ГҐ.
 
-//Решает уравнение вида c = 0.
+//ГђГҐГёГ ГҐГІ ГіГ°Г ГўГ­ГҐГ­ГЁГҐ ГўГЁГ¤Г  c = 0.
 int SolveConstantEquation(double c)
 {
 
     printf("# It's a Constant Equation\n");
-    if (c == 0) { //Т.е. уравнение имеет вид 0=0.
+    if (c == 0) { //Г’.ГҐ. ГіГ°Г ГўГ­ГҐГ­ГЁГҐ ГЁГ¬ГҐГҐГІ ГўГЁГ¤ 0=0.
         return INF_ROOTS;
-    } else {     //Уравнение имеет вид с=0.
+    } else {     //Г“Г°Г ГўГ­ГҐГ­ГЁГҐ ГЁГ¬ГҐГҐГІ ГўГЁГ¤ Г±=0.
         return 0;
     }
 }
 
-//Решает линейное уравнение b*x + c = 0, где b != 0. Результат заносит в x.
+//ГђГҐГёГ ГҐГІ Г«ГЁГ­ГҐГ©Г­Г®ГҐ ГіГ°Г ГўГ­ГҐГ­ГЁГҐ b*x + c = 0, ГЈГ¤ГҐ b != 0. ГђГҐГ§ГіГ«ГјГІГ ГІ Г§Г Г­Г®Г±ГЁГІ Гў x.
 int SolveLinearEquation(double b, double c, double *x)
 {
     if (b == 0) {
         printf("# It's not a Linear Equation\n");
-        return SolveConstantEquation(c); //Уравнение вырождается в линейное.
+        return SolveConstantEquation(c); //Г“Г°Г ГўГ­ГҐГ­ГЁГҐ ГўГ»Г°Г®Г¦Г¤Г ГҐГІГ±Гї Гў Г«ГЁГ­ГҐГ©Г­Г®ГҐ.
     }
 
     printf("# It's a Linear Equation\n");
@@ -34,10 +35,10 @@ int SolveLinearEquation(double b, double c, double *x)
     return 1;
 }
 
-//Решает квадратное уравнение a*x*x + b*x + c = 0. Результат заносит в x1 и x2.
-// в случае с комплексными корнями заносит в x1 их действительную часть, а в x2 - мнимую,
-//при этом достаточно помнить один корень: второй - комплексно-сопряжённый.
-//Возвращает количество корней.
+//ГђГҐГёГ ГҐГІ ГЄГўГ Г¤Г°Г ГІГ­Г®ГҐ ГіГ°Г ГўГ­ГҐГ­ГЁГҐ a*x*x + b*x + c = 0. ГђГҐГ§ГіГ«ГјГІГ ГІ Г§Г Г­Г®Г±ГЁГІ Гў x1 ГЁ x2.
+// Гў Г±Г«ГіГ·Г ГҐ Г± ГЄГ®Г¬ГЇГ«ГҐГЄГ±Г­Г»Г¬ГЁ ГЄГ®Г°Г­ГїГ¬ГЁ Г§Г Г­Г®Г±ГЁГІ Гў x1 ГЁГµ Г¤ГҐГ©Г±ГІГўГЁГІГҐГ«ГјГ­ГіГѕ Г·Г Г±ГІГј, Г  Гў x2 - Г¬Г­ГЁГ¬ГіГѕ,
+//ГЇГ°ГЁ ГЅГІГ®Г¬ Г¤Г®Г±ГІГ ГІГ®Г·Г­Г® ГЇГ®Г¬Г­ГЁГІГј Г®Г¤ГЁГ­ ГЄГ®Г°ГҐГ­Гј: ГўГІГ®Г°Г®Г© - ГЄГ®Г¬ГЇГ«ГҐГЄГ±Г­Г®-Г±Г®ГЇГ°ГїГ¦ВёГ­Г­Г»Г©.
+//Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ®Г°Г­ГҐГ©.
 int SolveSquareEquation(double a, double b, double c, double *x1, double *x2)
 {
     assert(isfinite(a));
@@ -50,19 +51,21 @@ int SolveSquareEquation(double a, double b, double c, double *x1, double *x2)
 
     if (a == 0) {
         printf("# It's not a Square Equation\n");
-        return SolveLinearEquation(b, c, x1); //Уравнение вырождается в линейное.
+        return SolveLinearEquation(b, c, x1); //Г“Г°Г ГўГ­ГҐГ­ГЁГҐ ГўГ»Г°Г®Г¦Г¤Г ГҐГІГ±Гї Гў Г«ГЁГ­ГҐГ©Г­Г®ГҐ.
     }
 
     printf("# It's a Square Equation\n");
     long double discriminant = b * b - 4 * a * c;
     printf("# Discriminant = %lg\n", discriminant);
-    if (discriminant < 0) { //Комплексные корни.
+    /* Comparing double number without epsilon might lead to a wrong behavior of your program */
+    /* Numbers have a limited reoresentation in memory*/
+    if (discriminant < 0) { //ГЉГ®Г¬ГЇГ«ГҐГЄГ±Г­Г»ГҐ ГЄГ®Г°Г­ГЁ.
         *x1 = -b / (2 * a);
         *x2 = sqrt(-discriminant) / (2 * a);
         return COMPLEX_ROOTS;
     }
     *x1 = (-b + sqrt(discriminant)) / (2 * a);
-    if (discriminant == 0) {               //Корни совпадают
+    if (discriminant == 0) {               //ГЉГ®Г°Г­ГЁ Г±Г®ГўГЇГ Г¤Г ГѕГІ
         *x2 = *x1;
         return 1;
     } else {  //discriminant > 0
@@ -80,7 +83,7 @@ int PrintRes(int num_of_roots, double x1, double x2)
                 break;
         case 2: printf ("x1 = %lg, x2 = %lg\n", x1, x2);
                 break;
-        //В случае комплексных корней в x1 и x2 хранятся их действительная и мнимая части соответственно.
+        //Г‚ Г±Г«ГіГ·Г ГҐ ГЄГ®Г¬ГЇГ«ГҐГЄГ±Г­Г»Гµ ГЄГ®Г°Г­ГҐГ© Гў x1 ГЁ x2 ГµГ°Г Г­ГїГІГ±Гї ГЁГµ Г¤ГҐГ©Г±ГІГўГЁГІГҐГ«ГјГ­Г Гї ГЁ Г¬Г­ГЁГ¬Г Гї Г·Г Г±ГІГЁ Г±Г®Г®ГІГўГҐГІГ±ГІГўГҐГ­Г­Г®.
         case COMPLEX_ROOTS: printf ("x1 = %lg + %lgi, x2 = %lg - %lgi\n", x1, x2, x1, x2);
                             break;
         case INF_ROOTS: printf("Any number\n");
@@ -126,10 +129,10 @@ const double PRECISION = 0.00001;
 
 int Testing()
 {
-    vector< array<double, 3> > tests; //вектор тестов, состоящий из троек a,b,c.
+    vector< array<double, 3> > tests; //ГўГҐГЄГІГ®Г° ГІГҐГ±ГІГ®Гў, Г±Г®Г±ГІГ®ГїГ№ГЁГ© ГЁГ§ ГІГ°Г®ГҐГЄ a,b,c.
     vector< pair<int, pair<double, double> > > answers;
     MakeTests(tests, answers);
-    pair<int, pair<double, double> > program_answer; //количество корней, x1, x2
+    pair<int, pair<double, double> > program_answer; //ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ®Г°Г­ГҐГ©, x1, x2
     for (int i = 0; i < tests.size(); ++i) {
         printf("----------------\n");
         printf("Test %d: %lgx^2+%lgx+%lg=0\n", i + 1, tests[i][0], tests[i][1], tests[i][2]);
@@ -143,7 +146,7 @@ int Testing()
             if (answers[i].first == 1 && abs(answers[i].second.first - program_answer.second.first) > PRECISION) {
                 throw;
             }
-            //Если корней 2 и они разные, то не забыть учесть, что они могут идти в ответе не в том порядке.
+            //Г…Г±Г«ГЁ ГЄГ®Г°Г­ГҐГ© 2 ГЁ Г®Г­ГЁ Г°Г Г§Г­Г»ГҐ, ГІГ® Г­ГҐ Г§Г ГЎГ»ГІГј ГіГ·ГҐГ±ГІГј, Г·ГІГ® Г®Г­ГЁ Г¬Г®ГЈГіГІ ГЁГ¤ГІГЁ Гў Г®ГІГўГҐГІГҐ Г­ГҐ Гў ГІГ®Г¬ ГЇГ®Г°ГїГ¤ГЄГҐ.
             if (answers[i].first == 2 && (abs(answers[i].second.first - program_answer.second.first) > PRECISION ||
                                           abs(answers[i].second.second - program_answer.second.second) > PRECISION) &&
                 (abs(answers[i].second.first - program_answer.second.second) > PRECISION ||
