@@ -48,7 +48,7 @@ int SolveSquareEquation(double a, double b, double c, double *x1, double *x2)
     assert(x2 != nullptr);
     assert(x1 != x2);
 
-    if (a == 0) {
+    if (abs(a) < EPSILON) {
         printf("# It's not a Square Equation\n");
         return SolveLinearEquation(b, c, x1); // The equation degenerates into linear.
     }
@@ -56,13 +56,13 @@ int SolveSquareEquation(double a, double b, double c, double *x1, double *x2)
     printf("# It's a Square Equation\n");
     long double discriminant = b * b - 4 * a * c;
     printf("# Discriminant = %lg\n", discriminant);
-    if (discriminant - 0 < EPSILON) { // Complex roots.
+    if (discriminant < EPSILON) { // Complex roots.
         *x1 = -b / (2 * a);
         *x2 = sqrt(-discriminant) / (2 * a);
         return COMPLEX_ROOTS;
     }
     *x1 = (-b + sqrt(discriminant)) / (2 * a);
-    if (discriminant == 0) {               // Roots are the same
+    if (abs(discriminant) < EPSILON) {               // Roots are the same
         *x2 = *x1;
         return 1;
     } else {  // discriminant > 0
