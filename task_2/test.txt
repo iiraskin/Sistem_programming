@@ -1,4 +1,4 @@
-'My uncle, man of firm convictions . . .
+﻿'My uncle, man of firm convictions...
 By falling gravely ill, he's won
 A due respect for his afflictions
 The only clever thing he's done.
@@ -135,7 +135,7 @@ And then await sweet recompense.
 At first he'd beg a declaration,
 And listen for the heart's first beat,
 Then stalk love fasterand entreat
-A lover's secret assignation . . .
+A lover's secret assignation...
 And then in private he'd prepare
 In silence to instruct the fair!
 How early he could stir or worry
@@ -296,7 +296,7 @@ For one may be a man of reason
 And mind the beauty of his nails.
 Why argue vainly with the season?
 For custom's rule o'er man prevails.
-Now my Eugene, Chadyev's* double,
+Now my Eugene, Chadyev's double,
 From jealous critics fearing trouble,
 Was quite the pedant in his dress
 And what we called a fop, no less.
@@ -432,8 +432,7 @@ They're hardly worth the songs one sings
 Or all the passions they inspire;
 Their charming words and glances sweet
 Are quite as faithless as their feet.
-But what of my Eugene?
-Half drowsing,
+But what of my Eugene? Half drowsing,
 He drives to bed from last night's ball,
 While Petersburg, already rousing,
 Answers the drumbeat's duty call.
