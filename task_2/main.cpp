@@ -6,6 +6,7 @@
 
 using std::vector;
 
+const char CHAR_INIT = 20;
 //Text settings
 const int NUM_OF_VERCE = 33; //Number of verces
 const int VERCE_SIZE = 14; //Size of verce. Now it is like in Onegin
@@ -17,11 +18,6 @@ const char* NEW_TEXT = "nonsense.txt";
 //language settings
 const int NUM_OF_VEWELS = 12;
 const char vowels_en[12] = {'A', 'E', 'I', 'O', 'U', 'Y', 'a', 'e', 'i', 'o', 'u', 'y'};
-
-//This constant is usefull if you use Windows.
-//Then there should be number of lines in text minus one, or something about that. Else set it in 0.
-//Yes, it is an awful crutch.
-const int NUM_OF_EXCESS_SIMBOLS = 755;
 
 // The function fills the list of strings. It returns 0 if it is successful.
 // Also the function replaces the line breaks in the text with '\0'. Options:
@@ -140,7 +136,7 @@ int makeListOfLines(char** text, char*** lines, int* num_of_lines)
         }
     }
     // Fill the list of strings
-    *lines = new char*[*num_of_lines + 1];
+    *lines = new char*[*num_of_lines + 1]{nullptr};
     (*lines)[0] = *text;
     int j = 1;
     for (int i = 1; (*text)[i] != '\0'; ++i) {
@@ -167,14 +163,16 @@ int readText(int fd, char** text, char*** lines, int* num_of_lines)
     struct stat buff;
     // Filling the buff structure
     fstat(fd, &buff);
-    *text = new char[buff.st_size + 1];
+    *text = new char[buff.st_size + 1]{CHAR_INIT};
     (*text)[buff.st_size] = '\0';
     // Read the text
-    read(fd, *text, buff.st_size);
+    int text_lean = read(fd, *text, buff.st_size);
     //Work with crutch for Windows.
-    char* excess_part = &(*text)[buff.st_size - NUM_OF_EXCESS_SIMBOLS + 1];
-    (*text)[buff.st_size - NUM_OF_EXCESS_SIMBOLS] = '\0';
-    delete[] excess_part;
+    if (text_lean < buff.st_size) {
+        char* excess_part = &(*text)[text_lean + 1];
+        (*text)[text_lean] = '\0';
+        delete[] excess_part;
+    }
     // Preparing the text for further use
     if (makeListOfLines(text, lines, num_of_lines)) {
         printf("readText: Error in makeListOfLines\n");
@@ -355,13 +353,10 @@ int nonsenseGenerator(char*** lines, int num_of_lines, char*** generate_text, Rh
         return 1;
     }
 
-    *generate_text = new char*[num_generate_lines + 1];
+    *generate_text = new char*[num_generate_lines + 1]{nullptr};
     (*generate_text)[num_generate_lines] = nullptr;
 
-    bool* is_used = new bool[num_of_lines];
-    for (int i = 0; i < num_of_lines; ++i) {
-        is_used[i] = false;
-    }
+    bool* is_used = new bool[num_of_lines]{false};
     // Generate text. At each iteration, one stanza is obtained.
     // Default order rhyme as like in Onegin.
     for (int i = 0; i < num_generate_lines; i += VERCE_SIZE) {
