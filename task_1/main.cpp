@@ -11,6 +11,8 @@ const double EPSILON = 0.000001;  //Precision of comparison of doubles;
 const int INF_ROOTS = 8; // Infinite number of roots.
 const int COMPLEX_ROOTS = 3; // Roots are complex.
 
+const char* TESTS = "tests.txt";
+
 struct Test
 {
     double a;
@@ -49,7 +51,7 @@ int SolveLinearEquation(double b, double c, double *x);
 // Returns the number of roots.
 int SolveSquareEquation(double a, double b, double c, double *x1, double *x2);
 int PrintRes(int num_of_roots, double x1, double x2);
-int EquationSolver();
+void EquationSolver();
 void MakeTests(vector<Test> &tests, vector<Answer> &answers);
 int Testing(const vector<Test>& tests, const vector<Answer>& answers);
 
@@ -109,7 +111,7 @@ int SolveSquareEquation(double a, double b, double c, double *x1, double *x2)
     printf("# It's a Square Equation\n");
     long double discriminant = b * b - 4 * a * c;
     printf("# Discriminant = %lg\n", discriminant);
-    if (discriminant < EPSILON) { // Complex roots.
+    if (discriminant < -EPSILON) { // Complex roots.
         *x1 = -b / (2 * a);
         *x2 = sqrt(-discriminant) / (2 * a);
         return COMPLEX_ROOTS;
@@ -145,20 +147,59 @@ int PrintRes(int num_of_roots, double x1, double x2)
     return 0;
 }
 
-int EquationSolver()
+void EquationSolver()
 {
-    printf ("# This program solve square equation a*x*x + b*x + c = 0\n");
-    printf ("# Enter a, b, c\n");
-    double a = 0, b = 0, c = 0;
-    scanf("%lg %lg %lg",&a, &b, &c);
-    double x1 = 0, x2 = 0;
-    int num_of_roots = SolveSquareEquation(a, b, c, &x1, &x2);
-    return PrintRes(num_of_roots, x1, x2);
+    while (true) {
+        printf ("# This program solve square equation a*x*x + b*x + c = 0\n");
+        printf ("# Enter a, b, c\n");
+        double a = 0, b = 0, c = 0;
+        scanf("%lg %lg %lg",&a, &b, &c);
+        double x1 = 0, x2 = 0;
+        int num_of_roots = SolveSquareEquation(a, b, c, &x1, &x2);
+        if (!PrintRes(num_of_roots, x1, x2)) {
+            printf ("# Some error in PrintRes\n");
+        }
+        printf ("# Input 'continue' to continue\n");
+        char* command = nullptr;
+        scanf("%s",&command);
+        if (command != "continue") {
+            break;
+        }
+    }
 }
 
 void MakeTests(vector<Test> &tests, vector<Answer> &answers)
 {
-    tests.push_back(Test(1, 3, 2));
+    FILE* f = fopen(TESTS, "r");
+    double a = 0, b = 0, c = 0, x1 = 0, x2 = 0;
+    int num = 0;
+    while ((fscanf(f, "%lg", &a)) != EOF) {
+        if ((fscanf(f, "%lg", &b)) == EOF) {
+            printf ("Incorrect test\n");
+            return;
+        }
+        if ((fscanf(f, "%lg", &c)) == EOF) {
+            printf ("Incorrect test\n");
+            return;
+        }
+        if ((fscanf(f, "%d", &num)) == EOF) {
+            printf ("Incorrect test\n");
+            return;
+        }
+        if ((fscanf(f, "%lg", &x1)) == EOF) {
+            printf ("Incorrect test\n");
+            return;
+        }
+        if ((fscanf(f, "%lg", &x2)) == EOF) {
+            printf ("Incorrect test\n");
+            return;
+        }
+        tests.push_back(Test(a, b, c));
+        answers.push_back(Answer(num, x1, x2));
+    }
+    fclose(f);
+
+    /*tests.push_back(Test(1, 3, 2));
     answers.push_back(Answer(2, -2, -1));
     tests.push_back(Test(1, 4, 4));
     answers.push_back(Answer(1, -2, -2));
@@ -175,7 +216,7 @@ void MakeTests(vector<Test> &tests, vector<Answer> &answers)
     tests.push_back(Test(1, 6, 10));
     answers.push_back(Answer(COMPLEX_ROOTS, -3, 1));
     tests.push_back(Test(1, 4, 0));
-    answers.push_back(Answer(2, 0, -4));
+    answers.push_back(Answer(2, 0, -4));*/
 }
 
 int Testing(const vector<Test>& tests, const vector<Answer>& answers)
