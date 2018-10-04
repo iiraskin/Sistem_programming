@@ -198,25 +198,6 @@ void MakeTests(vector<Test> &tests, vector<Answer> &answers)
         answers.push_back(Answer(num, x1, x2));
     }
     fclose(f);
-
-    /*tests.push_back(Test(1, 3, 2));
-    answers.push_back(Answer(2, -2, -1));
-    tests.push_back(Test(1, 4, 4));
-    answers.push_back(Answer(1, -2, -2));
-    tests.push_back(Test(0, 1, 4));
-    answers.push_back(Answer(1, -4, -4));
-    tests.push_back(Test(0, 0, 3));
-    answers.push_back(Answer(0, 0, 0));
-    tests.push_back(Test(0, 0, 0));
-    answers.push_back(Answer(INF_ROOTS, 0, 0));
-    tests.push_back(Test(1, 3, -4));
-    answers.push_back(Answer(2, -4, 1));
-    tests.push_back(Test(-2, 4, -2));
-    answers.push_back(Answer(1, 1, 1));
-    tests.push_back(Test(1, 6, 10));
-    answers.push_back(Answer(COMPLEX_ROOTS, -3, 1));
-    tests.push_back(Test(1, 4, 0));
-    answers.push_back(Answer(2, 0, -4));*/
 }
 
 int Testing(const vector<Test>& tests, const vector<Answer>& answers)
