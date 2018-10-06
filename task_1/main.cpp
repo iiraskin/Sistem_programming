@@ -8,8 +8,10 @@ using std::vector;
 const double PRECISION = 0.00001; //Precision of calculating
 const double EPSILON = 0.000001;  //Precision of comparison of doubles;
 
-const int INF_ROOTS = 8; // Infinite number of roots.
-const int COMPLEX_ROOTS = 3; // Roots are complex.
+enum Num_of_roots {
+    INF_ROOTS = 8, // Infinite number of roots.
+    COMPLEX_ROOTS = 3, // Roots are complex.
+};
 
 const char* TESTS = "tests.txt";
 
