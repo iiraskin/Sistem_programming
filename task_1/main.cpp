@@ -63,7 +63,23 @@ int main()
     vector<Answer> answers;
     MakeTests(tests, answers);
     Testing(tests, answers);
-    EquationSolver();
+    while (true) {
+        std::cout << "# This program solve square equation a*x*x + b*x + c = 0" << std::endl;
+        std::cout << "# Enter a, b, c" << std::endl;
+        double a = 0, b = 0, c = 0;
+        std::cin >> a >> b >> c;
+        double x1 = 0, x2 = 0;
+        int num_of_roots = SolveSquareEquation(a, b, c, &x1, &x2);
+        if (PrintRes(num_of_roots, x1, x2)) {
+            std::cout << "# Some error in PrintRes" << std::endl;
+        }
+        std::cout << "# Input 'continue' to continue" << std::endl;
+        std::string command;
+        std::cin >> command;
+        if (command != "continue") {
+            break;
+        }
+    }
 }
 
 int SolveConstantEquation(double c)
@@ -149,27 +165,6 @@ int PrintRes(int num_of_roots, double x1, double x2)
     return 0;
 }
 
-void EquationSolver()
-{
-    while (true) {
-        printf ("# This program solve square equation a*x*x + b*x + c = 0\n");
-        printf ("# Enter a, b, c\n");
-        double a = 0, b = 0, c = 0;
-        scanf("%lg %lg %lg",&a, &b, &c);
-        double x1 = 0, x2 = 0;
-        int num_of_roots = SolveSquareEquation(a, b, c, &x1, &x2);
-        if (!PrintRes(num_of_roots, x1, x2)) {
-            printf ("# Some error in PrintRes\n");
-        }
-        printf ("# Input 'continue' to continue\n");
-        char* command = nullptr;
-        scanf("%s",&command);
-        if (command != "continue") {
-            break;
-        }
-    }
-}
-
 void MakeTests(vector<Test> &tests, vector<Answer> &answers)
 {
     FILE* f = fopen(TESTS, "r");
@@ -177,23 +172,23 @@ void MakeTests(vector<Test> &tests, vector<Answer> &answers)
     int num = 0;
     while ((fscanf(f, "%lg", &a)) != EOF) {
         if ((fscanf(f, "%lg", &b)) == EOF) {
-            printf ("Incorrect test\n");
+            printf ("Incorrect test: a=%lg;\n b, c, num, x1, x2 are not given\n", a);
             return;
         }
         if ((fscanf(f, "%lg", &c)) == EOF) {
-            printf ("Incorrect test\n");
+            printf ("Incorrect test: a=%lg, b=%lg;\n c, num, x1, x2 are not given\n", a, b);
             return;
         }
         if ((fscanf(f, "%d", &num)) == EOF) {
-            printf ("Incorrect test\n");
+            printf ("Incorrect test: a=%lg, b=%lg, c=%lg;\n num, x1, x2 are not given\n", a, b, c);
             return;
         }
         if ((fscanf(f, "%lg", &x1)) == EOF) {
-            printf ("Incorrect test\n");
+            printf ("Incorrect test: a=%lg, b=%lg, c=%lg, num=%d\n; x1, x2 are not given\n", a, b, c, num);
             return;
         }
         if ((fscanf(f, "%lg", &x2)) == EOF) {
-            printf ("Incorrect test\n");
+            printf ("Incorrect test: a=%lg, b=%lg, c=%lg, num=%d, x1=%lg\n; x2 is not given\n", a, b, c, num, x1);
             return;
         }
         tests.push_back(Test(a, b, c));
