@@ -19,6 +19,7 @@ const char* NEW_TEXT = "nonsense.txt";
 const int NUM_OF_VEWELS = 12;
 const char vowels_en[12] = {'A', 'E', 'I', 'O', 'U', 'Y', 'a', 'e', 'i', 'o', 'u', 'y'};
 
+
 // The function fills the list of strings. It returns 0 if it is successful.
 // Also the function replaces the line breaks in the text with '\0'. Options:
 // text - processed text (array of strings)
@@ -160,19 +161,13 @@ int readText(int fd, char** text, char*** lines, int* num_of_lines)
         printf("readText: Incorrect input data\n");
         return 1;
     }
-    struct stat buff;
+    struct stat buff = {};
     // Filling the buff structure
     fstat(fd, &buff);
     *text = new char[buff.st_size + 1]{CHAR_INIT};
-    (*text)[buff.st_size] = '\0';
     // Read the text
     int text_lean = read(fd, *text, buff.st_size);
-    //Work with crutch for Windows.
-    if (text_lean < buff.st_size) {
-        char* excess_part = &(*text)[text_lean + 1];
-        (*text)[text_lean] = '\0';
-        delete[] excess_part;
-    }
+    (*text)[text_lean] = '\0';
     // Preparing the text for further use
     if (makeListOfLines(text, lines, num_of_lines)) {
         printf("readText: Error in makeListOfLines\n");
