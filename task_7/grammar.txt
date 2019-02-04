@@ -1,0 +1,10 @@
+G = FG | M
+M = MAIN {B}
+F = 'NAME' {B}
+B = AB | WI B | SB | A | WI | S
+A = x := T+
+WI = while(C){B} | if(C){B}
+S = input ('x') | output (T+) | call 'NAME' | sqr(T+)
+C = T+ = T+ | T+ # T+ | T+ < T+ | T+ > T+
+T+ = T* + T+ | T* - T+ | T*
+T* = 'x' * T* | '3141' * T* | 'x' | '3141'

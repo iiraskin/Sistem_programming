@@ -1,0 +1,16 @@
+MYFUNC
+{
+y := 3
+x := y * 3
+}
+
+MAIN
+{
+x := 4
+sqrt(x)
+while (x # 0) {
+x := x - 1
+}
+call MYFUNC
+output(x)
+}

@@ -1,0 +1,6 @@
+MAIN
+{
+input(a)
+input(b)
+output(a + b)
+}

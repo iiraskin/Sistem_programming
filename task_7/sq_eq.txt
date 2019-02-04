@@ -1,0 +1,52 @@
+|Solve square equation
+
+LINEAR
+{
+  b := 0 - b
+  x := c / b
+  output(x)
+}
+
+SQUARE
+{
+  if (a = 0) {
+    if (b = 0) {
+      if (c = 0) {
+        num := 8
+        return
+      }
+      num := 0
+      return
+    }
+    num := 1
+    @ LINEAR
+  } 
+  if (a # 0) {
+    num := 2
+    if (c = 0) {
+      y := 0
+      output(y)
+      c := b
+      b := a
+      @ LINEAR
+      return
+    }
+    d := b * b - 4 * a * c
+    sqrt(d)
+    x := 0 - b + d
+    y := 0 - b - d
+    x := x / 2 / a
+    y := y / 2 / a
+    output(x)
+    output(y)
+  }
+}
+
+MAIN
+{
+  input(a) | Params
+  input(b)
+  input(c)
+  @ SQUARE
+  output(num) | Num of roots
+}

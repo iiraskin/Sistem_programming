@@ -1,0 +1,4 @@
+MAIN {
+x := 2
+output(x + 3)
+}
