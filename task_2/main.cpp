@@ -87,10 +87,7 @@ int main()
         return 1;
     }
     //Reading of text
-    if (readText(f, &text, &lines, &num_of_lines)) {
-        printf("main: error with reading of text\n");
-        return 1;
-    }
+    readText(f, &text, &lines, &num_of_lines) || ({ printf("main: error with reading of text\n"); return 1; 0; });
 
     //Sort text
     sortStrings(&lines, num_of_lines);
@@ -166,8 +163,8 @@ int readText(int fd, char** text, char*** lines, int* num_of_lines)
     fstat(fd, &buff);
     *text = new char[buff.st_size + 1]{CHAR_INIT};
     // Read the text
-    int text_lean = read(fd, *text, buff.st_size);
-    (*text)[text_lean] = '\0';
+    int text_len = read(fd, *text, buff.st_size);
+    (*text)[text_len] = '\0';
     // Preparing the text for further use
     if (makeListOfLines(text, lines, num_of_lines)) {
         printf("readText: Error in makeListOfLines\n");
@@ -243,7 +240,7 @@ void reversSortStrings(char*** lines, int num_of_lines)
 int printText(FILE* fd, char**& lines)
 {
     if (fd == nullptr) {
-        printf("main: Cannot open file %s.\n", R_SORT_TEXT);
+        printf("printText: Cannot open file %s.\n", R_SORT_TEXT);
         return 1;
     }
     for (int i = 0; lines[i] != nullptr; ++i) {
