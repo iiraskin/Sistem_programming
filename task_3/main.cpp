@@ -24,7 +24,7 @@ public:
     }
 
     bool Push(st_type el) {
-        int er = 0;
+        int er;
         if (er = Is_stack_OK()) {
             printf("# CStack::Push: Stack is broken. Error %d. For more information use function Error_inf\n", er);
             return false;
@@ -46,7 +46,7 @@ public:
     }
 
     bool Pop() {
-        int er = 0;
+        int er;
         if (er = Is_stack_OK()) {
             printf("# CStack::Push: Stack is broken. Error %d. For more information use function Error_inf\n", er);
             return false;
@@ -68,7 +68,7 @@ public:
 
     st_type Top() const
     {
-        int er = 0;
+        int er;
         if (er = Is_stack_OK()) {
             printf("# CStack::Push: Stack is broken. Error %d. For more information use function Error_inf\n", er);
             return false;
