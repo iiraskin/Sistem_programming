@@ -1,0 +1,19 @@
+begin
+in
+pop rax
+push 1
+push 1
+pop rbx
+
+label circle
+push rbx
+mul
+push rbx
+push 1
+add
+pop rbx
+cmp rbx rax
+jbe circle
+
+out
+end
