@@ -1,0 +1,15 @@
+label func
+pop rax
+push rax
+out
+push rax
+ret
+
+begin
+push 0
+label here
+in
+add
+call func
+jump here
+end

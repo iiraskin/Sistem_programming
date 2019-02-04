@@ -1,0 +1,10 @@
+begin
+push -2
+in
+div
+push 4
+mul
+out
+push rax
+out
+end

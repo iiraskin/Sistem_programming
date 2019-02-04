@@ -1,0 +1,11 @@
+label 10
+pop rax push rax out
+push rax ret
+begin
+push 1
+label 69
+in
+add
+call 10
+jump 69
+end

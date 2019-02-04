@@ -1,0 +1,98 @@
+label linear
+push 0
+push rbx
+push rcx
+div
+sub
+pop rdx
+ret
+
+label square
+push rbx
+push rbx
+mul
+push 4
+push rax
+push rcx
+mul
+mul
+sub
+pop rdx
+cmp rdx rdi
+jb noroot
+push rdx
+sqr
+pop rdx
+
+push 0
+push rbx
+sub
+push rdx
+add
+push 2
+div
+push rax
+div
+pop rbp
+
+push 0
+push rbx
+sub
+push rdx
+sub
+push 2
+div
+push rax
+div
+pop rsi
+
+push 2
+out
+push rbp
+push rsi
+out
+out
+ret
+
+label noroot
+push -1
+out
+ret
+
+
+
+
+begin
+in
+pop rax
+in
+pop rbx
+in
+pop rcx
+push 0
+pop rdi
+cmp rax rdi
+je lin
+call square
+end
+
+label lin
+cmp rbx rdi
+je const
+push 1
+out
+call linear
+push rdx
+out
+end
+
+label const
+cmp rcx rdi
+je infroot
+push 0
+out
+end
+label infroot
+push 3
+out
+end

@@ -1,0 +1,22 @@
+begin
+push 4
+push 9
+push 5
+push 6
+add
+mul
+add
+in
+sub
+pop [3]
+push 9
+push 3
+div
+in
+add
+push 4
+mul
+push [3]
+add
+out
+end

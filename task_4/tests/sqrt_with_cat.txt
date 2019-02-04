@@ -1,0 +1,11 @@
+begin
+in
+sqr
+pop rax
+label cycle
+in
+pop rbx
+cmp rax rbx
+jne cycle
+meow
+end
