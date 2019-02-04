@@ -63,16 +63,20 @@ int main()
     vector<Answer> answers;
     MakeTests(tests, answers);
     Testing(tests, answers);
+
     while (true) {
         std::cout << "# This program solve square equation a*x*x + b*x + c = 0" << std::endl;
         std::cout << "# Enter a, b, c" << std::endl;
         double a = 0, b = 0, c = 0;
         std::cin >> a >> b >> c;
+
         double x1 = 0, x2 = 0;
         int num_of_roots = SolveSquareEquation(a, b, c, &x1, &x2);
+
         if (PrintRes(num_of_roots, x1, x2)) {
             std::cout << "# Some error in PrintRes" << std::endl;
         }
+
         std::cout << "# Input 'continue' to continue" << std::endl;
         std::string command;
         std::cin >> command;
@@ -80,6 +84,8 @@ int main()
             break;
         }
     }
+
+    return 0;
 }
 
 int SolveConstantEquation(double c)
@@ -134,8 +140,10 @@ int SolveSquareEquation(double a, double b, double c, double *x1, double *x2)
         *x2 = sqrt(-discriminant) / (2 * a);
         return COMPLEX_ROOTS;
     }
+
     double sqrt_of_discriminant = sqrt(discriminant);
     *x1 = (-b + sqrt_of_discriminant) / (2 * a);
+
     if (abs(discriminant) < EPSILON) {               // Roots are the same
         *x2 = *x1;
         return 1;
