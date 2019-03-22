@@ -25,7 +25,13 @@ int CRPNHandler::Handling()
     }
 
     int i = 0;
-    for (i; i < comm_buff.size() && comm_buff[i] != CMD_BEGIN; ++i) {}
+    for (i; i < comm_buff.size() && !(comm_buff[i] == CMD_BEGIN &&
+                               (i == 0 || comm_buff[i - 1] != CMD_PUSH && comm_buff[i - 1] != CMD_CALL &&
+                                #define DEF_CMD(name, n, str, cond) \
+                                comm_buff[i - 1] != CMD_##name &&
+                                #include "commands/comms_jump.h"
+                                #undef DEF_CMD
+                                comm_buff[i - 1] != CMD_JUMP); ++i) {}
     ++i;
 
     for (i; i < comm_buff.size(); ++i)
@@ -284,11 +290,11 @@ int CRPNHandler::CallHandling(int& i, std::unordered_map<int, int>& labels)
     int lab = comm_buff[++i];
 
     if (labels.find(lab) == labels.end()) {
-        HANDLING_ERROR("CRPNHandler::JumpHandling: This label is not unique: %s\n", lab)
+        HANDLING_ERROR("CRPNHandler::CallHandling: This label is not unique: %s\n", lab)
     }
 
     if (!func_stack.Push(i)) {
-        HANDLING_ERROR("CRPNHandler::JumpHandling: Error in CStack.Push(): %s\n", lab)
+        HANDLING_ERROR("CRPNHandler::CallHandling: Error in CStack.Push(): %s\n", lab)
     }
     i = labels[lab];
     return 0;
